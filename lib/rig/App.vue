@@ -8,7 +8,7 @@
 
         <div class="viewer">
           <div class="overlay">
-            <iframe class="ext" src="/viewer.html" scrolling="no" sandbox="allow-scripts"></iframe>
+            <iframe class="ext" :style="{ height: `${Math.min(500, app.panel_height || 500)}px` }" :src="viewerURL" scrolling="no" sandbox="allow-scripts"></iframe>
           </div>
         </div>
 
@@ -17,10 +17,10 @@
         </div>
       </div>
 
-      <div title="Broadcaster Live App" class="app">
+      <div title="Broadcaster Live App" class="app" id="live" v-if="app.live_config_path">
         <div class="broadcaster">
           <div class="live">
-            <iframe src="/live.html" scrolling="no" sandbox="allow-scripts"></iframe>
+            <iframe :src="liveURL" scrolling="no" sandbox="allow-scripts"></iframe>
           </div>
 
           <div class="info">
@@ -42,10 +42,10 @@
         </div>
       </div>
 
-      <div title="Broadcaster Config App" class="app">
+      <div title="Broadcaster Config App" class="app" id="config">
         <div class="broadcaster">
           <div class="config">
-            <iframe src="/config.html" scrolling="no" sandbox="allow-scripts"></iframe>
+            <iframe :src="configURL" scrolling="no" sandbox="allow-scripts"></iframe>
           </div>
 
           <div class="info">
@@ -69,8 +69,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 const UiButton = window.KeenUI.UiButton;
 const UiTab = window.KeenUI.UiTab;
 const UiTabs = window.KeenUI.UiTabs;
@@ -79,7 +77,7 @@ const UiSelect = window.KeenUI.UiSelect;
 
 // Developer apps list
 const apps = /* DI:AppList */;
-const selectableApps = apps.map(a => {return { label: a._rig_id, value: a };});
+const selectableApps = apps.map(a => ({ label: a._rig_id, value: a }));
 
 export default {
   name: 'app',
@@ -89,11 +87,18 @@ export default {
   },
 
   data: () => ({
-    selectableApps: selectableApps,
-	selectedApp: selectableApps[0]
+    selectableApps,
+    selectedApp: selectableApps[0]
   }),
 
   computed: {
+    app() {
+      return this.selectedApp.value;
+    },
+
+    viewerURL: function viewerURL() { return `/${this.app._rig_id}/${this.app.viewer_path}`; },
+    configURL: function configURL() { return `/${this.app._rig_id}/${this.app.config_path}`; },
+    liveURL: function liveURL() { return `/${this.app._rig_id}/${this.app.live_config_path}`; }
   },
 
   methods: {
@@ -102,7 +107,6 @@ export default {
     },
 
     appSelected() {
-      console.log(this.selectedApp);
     }
   },
 
@@ -137,10 +141,10 @@ export default {
         top: 0;
         left: 0;
         z-index: 100;
-		// Panel extensions are limited to a height of 500px
-		max-height: 500px;
-		// ...and locked to 318px in width
-		width: 318px;
+        // Panel extensions are limited to a height of 500px
+        max-height: 500px;
+        // ...and locked to 318px in width
+        width: 318px;
       }
     }
   }

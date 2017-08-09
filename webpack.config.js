@@ -35,14 +35,13 @@ module.exports = {
   resolve: {
     extensions: ['*', '.js', '.vue', '.json'],
     enforceExtension: false,
-    modules: [resolve('src'), 'node_modules'],
+    modules: ['node_modules'],
     alias: {
       vue$: 'vue/dist/vue.esm.js',
       '@': resolve('lib'),
       manifest$: resolve('manifest.json'),
       shared: resolve('lib/shared'),
       src: resolve('lib'),
-      app: resolve('src'),
     }
   },
 
@@ -70,7 +69,7 @@ module.exports = {
   devServer: {
     port,
     hot: true,
-    contentBase: path.resolve(__dirname, 'dist'),
+    contentBase: path.resolve(__dirname, 'src'),
     publicPath: '/',
     headers: {
       'Access-Control-Allow-Origin': '*',
@@ -132,7 +131,25 @@ module.exports = {
           name: '[path][name].[ext]?[hash]',
           useRelativePaths: true
         }
-      }
+      },
+      {
+        test: /\.(js|vue)$/,
+        enforce: 'pre',
+        exclude: /node_modules|libs/,
+        use: [
+          {
+            loader: 'eslint-loader',
+            options: {
+              formatter: require('eslint-friendly-formatter')
+            }
+          },
+          {
+            loader: 'di-loader',
+            options: { apps }
+          }
+        ]
+      },
+
     ]
   }
 };
