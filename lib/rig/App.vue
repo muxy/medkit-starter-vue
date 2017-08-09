@@ -69,8 +69,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 const UiButton = window.KeenUI.UiButton;
 const UiTab = window.KeenUI.UiTab;
 const UiTabs = window.KeenUI.UiTabs;
@@ -79,7 +77,7 @@ const UiSelect = window.KeenUI.UiSelect;
 
 // Developer apps list
 const apps = /* DI:AppList */;
-const selectableApps = apps.map(a => {return { label: a._rig_id, value: a };});
+const selectableApps = apps.map(a => ({ label: a._rig_id, value: a }));
 
 export default {
   name: 'app',
@@ -89,25 +87,25 @@ export default {
   },
 
   data: () => ({
-    selectableApps: selectableApps,
-    selectedApp: selectableApps[0],
+    selectableApps,
+    selectedApp: selectableApps[0]
   }),
 
   computed: {
-    viewerIframeStyle: function() {
+    viewerIframeStyle: function viewerIframeStyle() {
       if (this.selectedApp.value.panel_height) {
         return {
           height: `${Math.min(500, this.selectedApp.value.panel_height)}px`
-        }
-      } else {
-        return {
-          height: '500px'
-        }
+        };
       }
+
+      return {
+        height: '500px'
+      };
     },
-    viewerUrl: function() { return `/${this.selectedApp.value._rig_id}/${this.selectedApp.value.viewer_path}` },
-    configUrl: function() { return `/${this.selectedApp.value._rig_id}/${this.selectedApp.value.config_path}` },
-    liveUrl: function() { return `/${this.selectedApp.value._rig_id}/${this.selectedApp.value.live_config_path}` }
+    viewerUrl: function viewerUrl() { return `/${this.selectedApp.value._rig_id}/${this.selectedApp.value.viewer_path}`; },
+    configUrl: function configUrl() { return `/${this.selectedApp.value._rig_id}/${this.selectedApp.value.config_path}`; },
+    liveUrl: function liveUrl() { return `/${this.selectedApp.value._rig_id}/${this.selectedApp.value.live_config_path}`; }
   },
 
   methods: {

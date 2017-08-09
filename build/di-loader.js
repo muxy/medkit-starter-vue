@@ -26,7 +26,7 @@ module.exports = function directInjection(content) {
   // [ { _rig_id: <app id>, etc. } ]
 
   try {
-    out = replace(out, '/* DI:AppList */', `[${apps.map(a => JSON.stringify(a)).join(', ')}]`);
+    out = replace(out, '/* DI:AppList */', `/*eslint-disable*/[${apps.map(a => JSON.stringify(a)).join(', ')}]/* eslint-enable */`);
   } catch (err) {
     console.error(err);
     throw err;

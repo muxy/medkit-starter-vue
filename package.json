@@ -42,6 +42,8 @@
   },
   "dependencies": {
     "es6-promise": "^4.1.0",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-loader": "^1.9.0",
     "font-awesome": "^4.7.0",
     "keen-ui": "^1.0.0",
     "lodash": "^4.17.4",

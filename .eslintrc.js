@@ -29,6 +29,8 @@ module.exports = {
     'import/extensions': 0,
     'import/no-unresolved': 0,
 
+    'no-underscore-dangle': 0,
+
     // allow debugger and console during development
     'no-console': process.env.NODE_ENV === 'production' ? 2 : 1,
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 1
