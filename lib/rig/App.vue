@@ -8,7 +8,7 @@
 
         <div class="viewer">
           <div class="overlay">
-            <iframe class="ext" scrolling="no" sandbox="allow-scripts"></iframe>
+            <iframe class="ext" v-bind:style="viewerIframeStyle" :src="viewerUrl" scrolling="no" sandbox="allow-scripts"></iframe>
           </div>
         </div>
 
@@ -17,10 +17,10 @@
         </div>
       </div>
 
-      <div title="Broadcaster Live App" class="app" id="live">
+      <div title="Broadcaster Live App" class="app" id="live" v-if="selectedApp.value.live_config_path">
         <div class="broadcaster">
           <div class="live">
-            <iframe scrolling="no" sandbox="allow-scripts"></iframe>
+            <iframe :src="liveUrl" scrolling="no" sandbox="allow-scripts"></iframe>
           </div>
 
           <div class="info">
@@ -45,7 +45,7 @@
       <div title="Broadcaster Config App" class="app" id="config">
         <div class="broadcaster">
           <div class="config">
-            <iframe scrolling="no" sandbox="allow-scripts"></iframe>
+            <iframe :src="configUrl" scrolling="no" sandbox="allow-scripts"></iframe>
           </div>
 
           <div class="info">
@@ -90,10 +90,24 @@ export default {
 
   data: () => ({
     selectableApps: selectableApps,
-    selectedApp: selectableApps[0]
+    selectedApp: selectableApps[0],
   }),
 
   computed: {
+    viewerIframeStyle: function() {
+      if (this.selectedApp.value.panel_height) {
+        return {
+          height: `${Math.min(500, this.selectedApp.value.panel_height)}px`
+        }
+      } else {
+        return {
+          height: '500px'
+        }
+      }
+    },
+    viewerUrl: function() { return `/${this.selectedApp.value._rig_id}/${this.selectedApp.value.viewer_path}` },
+    configUrl: function() { return `/${this.selectedApp.value._rig_id}/${this.selectedApp.value.config_path}` },
+    liveUrl: function() { return `/${this.selectedApp.value._rig_id}/${this.selectedApp.value.live_config_path}` }
   },
 
   methods: {
@@ -102,31 +116,6 @@ export default {
     },
 
     appSelected() {
-      const viewer = document.querySelector('.viewer iframe');
-      const live = document.querySelector('.live iframe');
-      const config = document.querySelector('.config iframe');
-
-      const liveContainer = document.querySelector('.app#live');
-      const configContainer = document.querySelector('.app#config');
-
-      const app = this.selectedApp.value;
-
-      viewer.src = `/${app._rig_id}/${app.viewer_path}`;
-      config.src = `/${app._rig_id}/${app.config_path}`;
-
-      if (app.live_config_path) {
-        console.log(app.live_config_path);
-        live.src = `/${app._rig_id}/${app.live_config_path}`;
-        liveContainer.style.display = 'inherit';
-      } else {
-        liveContainer.style.display = 'none';
-      }
-
-      if (app.panel_height) {
-        viewer.style.height = `${Math.min(500, app.panel_height)}px`;
-      } else {
-        viewer.style.height = '500px';
-      }
     }
   },
 
