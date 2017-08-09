@@ -115,13 +115,18 @@ export default {
       config.src = `/${app._rig_id}/${app.config_path}`;
 
       if (app.live_config_path) {
+        console.log(app.live_config_path);
         live.src = `/${app._rig_id}/${app.live_config_path}`;
-        liveContainer.style.visibility = 'visible';
+        liveContainer.style.display = 'inherit';
       } else {
-        liveContainer.style.visibility = 'collapsed';
+        liveContainer.style.display = 'none';
       }
 
-      console.log(this.selectedApp);
+      if (app.panel_height) {
+        viewer.style.height = `${Math.min(500, app.panel_height)}px`;
+      } else {
+        viewer.style.height = '500px';
+      }
     }
   },
 
@@ -156,10 +161,10 @@ export default {
         top: 0;
         left: 0;
         z-index: 100;
-		// Panel extensions are limited to a height of 500px
-		max-height: 500px;
-		// ...and locked to 318px in width
-		width: 318px;
+        // Panel extensions are limited to a height of 500px
+        max-height: 500px;
+        // ...and locked to 318px in width
+        width: 318px;
       }
     }
   }

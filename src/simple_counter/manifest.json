@@ -1,4 +1,5 @@
 {
   "viewer_path": "index.html",
-  "config_path": "config.html"
+  "config_path": "config.html",
+  "panel_height": 250
 }
