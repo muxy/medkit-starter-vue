@@ -8,7 +8,7 @@
 
         <div class="viewer">
           <div class="overlay">
-            <iframe class="ext" v-bind:style="viewerIframeStyle" :src="viewerUrl" scrolling="no" sandbox="allow-scripts"></iframe>
+            <iframe class="ext" :style="{ height: `${Math.min(500, app.panel_height || 500)}px` }" :src="viewerUrl" scrolling="no" sandbox="allow-scripts"></iframe>
           </div>
         </div>
 
@@ -17,7 +17,7 @@
         </div>
       </div>
 
-      <div title="Broadcaster Live App" class="app" id="live" v-if="selectedApp.value.live_config_path">
+      <div title="Broadcaster Live App" class="app" id="live" v-if="app.live_config_path">
         <div class="broadcaster">
           <div class="live">
             <iframe :src="liveUrl" scrolling="no" sandbox="allow-scripts"></iframe>
@@ -92,20 +92,13 @@ export default {
   }),
 
   computed: {
-    viewerIframeStyle: function viewerIframeStyle() {
-      if (this.selectedApp.value.panel_height) {
-        return {
-          height: `${Math.min(500, this.selectedApp.value.panel_height)}px`
-        };
-      }
-
-      return {
-        height: '500px'
-      };
+    app() {
+      return this.selectedApp.value;
     },
-    viewerUrl: function viewerUrl() { return `/${this.selectedApp.value._rig_id}/${this.selectedApp.value.viewer_path}`; },
-    configUrl: function configUrl() { return `/${this.selectedApp.value._rig_id}/${this.selectedApp.value.config_path}`; },
-    liveUrl: function liveUrl() { return `/${this.selectedApp.value._rig_id}/${this.selectedApp.value.live_config_path}`; }
+
+    viewerUrl: function viewerUrl() { return `/${this.app._rig_id}/${this.app.viewer_path}`; },
+    configUrl: function configUrl() { return `/${this.app._rig_id}/${this.app.config_path}`; },
+    liveUrl: function liveUrl() { return `/${this.app._rig_id}/${this.app.live_config_path}`; }
   },
 
   methods: {
