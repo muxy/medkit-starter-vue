@@ -8,7 +8,7 @@
 
         <div class="viewer">
           <div class="overlay">
-            <iframe class="ext" :style="{ height: `${Math.min(500, app.panel_height || 500)}px` }" :src="viewerUrl" scrolling="no" sandbox="allow-scripts"></iframe>
+            <iframe class="ext" :style="{ height: `${Math.min(500, app.panel_height || 500)}px` }" :src="viewerURL" scrolling="no" sandbox="allow-scripts"></iframe>
           </div>
         </div>
 
@@ -20,7 +20,7 @@
       <div title="Broadcaster Live App" class="app" id="live" v-if="app.live_config_path">
         <div class="broadcaster">
           <div class="live">
-            <iframe :src="liveUrl" scrolling="no" sandbox="allow-scripts"></iframe>
+            <iframe :src="liveURL" scrolling="no" sandbox="allow-scripts"></iframe>
           </div>
 
           <div class="info">
@@ -45,7 +45,7 @@
       <div title="Broadcaster Config App" class="app" id="config">
         <div class="broadcaster">
           <div class="config">
-            <iframe :src="configUrl" scrolling="no" sandbox="allow-scripts"></iframe>
+            <iframe :src="configURL" scrolling="no" sandbox="allow-scripts"></iframe>
           </div>
 
           <div class="info">
@@ -96,9 +96,9 @@ export default {
       return this.selectedApp.value;
     },
 
-    viewerUrl: function viewerUrl() { return `/${this.app._rig_id}/${this.app.viewer_path}`; },
-    configUrl: function configUrl() { return `/${this.app._rig_id}/${this.app.config_path}`; },
-    liveUrl: function liveUrl() { return `/${this.app._rig_id}/${this.app.live_config_path}`; }
+    viewerURL: function viewerURL() { return `/${this.app._rig_id}/${this.app.viewer_path}`; },
+    configURL: function configURL() { return `/${this.app._rig_id}/${this.app.config_path}`; },
+    liveURL: function liveURL() { return `/${this.app._rig_id}/${this.app.live_config_path}`; }
   },
 
   methods: {
