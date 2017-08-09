@@ -8,7 +8,7 @@
 
         <div class="viewer">
           <div class="overlay">
-            <iframe class="ext" src="/viewer.html" scrolling="no" sandbox="allow-scripts"></iframe>
+            <iframe class="ext" scrolling="no" sandbox="allow-scripts"></iframe>
           </div>
         </div>
 
@@ -17,10 +17,10 @@
         </div>
       </div>
 
-      <div title="Broadcaster Live App" class="app">
+      <div title="Broadcaster Live App" class="app" id="live">
         <div class="broadcaster">
           <div class="live">
-            <iframe src="/live.html" scrolling="no" sandbox="allow-scripts"></iframe>
+            <iframe scrolling="no" sandbox="allow-scripts"></iframe>
           </div>
 
           <div class="info">
@@ -42,10 +42,10 @@
         </div>
       </div>
 
-      <div title="Broadcaster Config App" class="app">
+      <div title="Broadcaster Config App" class="app" id="config">
         <div class="broadcaster">
           <div class="config">
-            <iframe src="/config.html" scrolling="no" sandbox="allow-scripts"></iframe>
+            <iframe scrolling="no" sandbox="allow-scripts"></iframe>
           </div>
 
           <div class="info">
@@ -90,7 +90,7 @@ export default {
 
   data: () => ({
     selectableApps: selectableApps,
-	selectedApp: selectableApps[0]
+    selectedApp: selectableApps[0]
   }),
 
   computed: {
@@ -102,6 +102,25 @@ export default {
     },
 
     appSelected() {
+      const viewer = document.querySelector('.viewer iframe');
+      const live = document.querySelector('.live iframe');
+      const config = document.querySelector('.config iframe');
+
+      const liveContainer = document.querySelector('.app#live');
+      const configContainer = document.querySelector('.app#config');
+
+      const app = this.selectedApp.value;
+
+      viewer.src = `/${app._rig_id}/${app.viewer_path}`;
+      config.src = `/${app._rig_id}/${app.config_path}`;
+
+      if (app.live_config_path) {
+        live.src = `/${app._rig_id}/${app.live_config_path}`;
+        liveContainer.style.visibility = 'visible';
+      } else {
+        liveContainer.style.visibility = 'collapsed';
+      }
+
       console.log(this.selectedApp);
     }
   },
