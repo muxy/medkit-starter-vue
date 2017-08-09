@@ -1,1 +1,18 @@
-Extension viewer
+<html>
+  <head>
+    <script src="//ext-cdn.muxy.io/muxy-extensions-sdk/testing/latest/muxy-extensions-sdk.js"></script>
+    <script type="text/javascript">
+      Muxy.setup({ extensionID: '1ssqhiy6xaoyisxbtvkiusxtjzkof2' });
+      const sdk = new Muxy.SDK();
+
+      async function increment() {
+        sdk.accumulate('simple_counter', {}); // We're not sending any actual data in our accumulated objects - we're just going to count the number of objects that have accumulated
+      }
+    </script>
+  </head>
+  <body>
+    <p>Pressing 'Increment' will send an accumulation request.</p>
+
+    <button onclick="increment()">Increment</button>
+  </body>
+</html>
