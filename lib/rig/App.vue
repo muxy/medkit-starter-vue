@@ -1,90 +1,116 @@
 <template>
   <div class="rig">
-    <div fullwidth background-color="default" indicator-color="white" type="text">
-      <div title="Viewer App" class="app">
-        <ui-select label="Panel Extensions" :options="selectableApps"
-          v-model="selectedApp" @change="appSelected"></ui-select>
-        </table>
+    <ui-toolbar remove-nav-icon type="colored" text-color="white"
+      :title="`Muxy Extension Development Rig - ${app.name || app._rig_id}`">
+      <div slot="actions">
+        <ui-icon-button color="white" has-dropdown icon="more_vert" ref="appsDropdown">
+          <ui-menu slot="dropdown" :options="selectableApps"
+            @select="selectApp" @close="$refs.appsDropdown.closeDropdown()">
+          </ui-menu>
+        </ui-icon-button>
+      </div>
+    </ui-toolbar>
 
+    <div class="viewer-live-apps">
+      <div title="Viewer Panel" class="app">
         <div class="viewer">
-          <div class="overlay">
-            <iframe class="ext" :style="{ height: `${Math.min(500, app.panel_height || 500)}px` }" :src="viewerURL" scrolling="no" sandbox="allow-scripts"></iframe>
-          </div>
-        </div>
+          <iframe class="panel" :style="{ height: `${Math.min(500, app.panel_height || 500)}px` }"
+            :src="viewerURL" scrolling="no" sandbox="allow-scripts"></iframe>
 
-        <div class="info">
-          This is what the viewer will see underneath the broadcaster's stream, alongside their other panels.
+          <div class="title">
+            {{ app.name || 'Panel Extension' }} - Viewer
+            <span class="info-link" @click="openModal('viewer-panel')">?</span>
+          </div>
         </div>
       </div>
 
-      <div title="Broadcaster Live App" class="app" id="live" v-if="app.live_config_path">
+      <div title="Broadcaster Live Panel" class="app" v-if="app.live_config_path">
         <div class="broadcaster">
           <div class="live">
-            <iframe :src="liveURL" scrolling="no" sandbox="allow-scripts"></iframe>
-          </div>
+            <iframe :src="liveURL"  :style="{ height: `${Math.min(500, app.panel_height || 500)}px` }"
+                    scrolling="no" sandbox="allow-scripts"></iframe>
 
-          <div class="info">
-            <p>
-              The broadcaster live app is accessible by the broadcaster from Twitch&#8217;s
-              &#8220;Live Dashboard.&#8221; The useable space in the Live App is considerably
-              smaller than the other two, and should only display controls that are immediately
-              useful to the broadcaster. The expected behavior is that a broadcaster will have
-              the Live Dashboard open while they stream.
-            </p>
-            <p>
-              This app is optional, but may be used to display information needed by the
-              broadcaster. For example, it may show aggregate voting data. It can also be used
-              by the broadcaster to effect app state, such as clearing out a poll&#8217;s
-              information, sending messages to viewers or hiding/displaying the app on all
-              viewers&#8217; pages.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div title="Broadcaster Config App" class="app" id="config">
-        <div class="broadcaster">
-          <div class="config">
-            <iframe :src="configURL" scrolling="no" sandbox="allow-scripts"></iframe>
-          </div>
-
-          <div class="info">
-            <p>
-              The Broadcaster Config App is accessible by the broadcaster from Twitch&#8217;s
-              &#8220;Extension Manager.&#8221; Your extension will
-              appear in a large area and should display any configuration options the
-              broadcaster may set that will affect your app channel-wide.
-            </p>
-            <p>
-              This page is not expected to be kept open by the broadcaster. Instead it is
-              loaded and configured before the extension is enabled, so that viewers only see your
-              extension after the broadcaster has tweaked it to their liking. Any realtime events
-              or updates sent to this page will most likely not be seen by the broadcaster.
-            </p>
+            <div class="title">
+              {{ app.name || 'Panel Extension' }} - Live
+              <span class="info-link" @click="openModal('live-panel')">?</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
+    <div title="Broadcaster Config Panel" class="app config-app">
+      <div class="broadcaster">
+        <div class="config">
+          <iframe :src="configURL" scrolling="no" sandbox="allow-scripts"></iframe>
+
+          <div class="title">
+            {{ app.name || 'Panel Extension' }} - Config
+            <span class="info-link" @click="openModal('config-panel')">?</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Informational Modals (defined out here so they can expand to full screen) -->
+    <ui-modal ref="viewer-panel" title="Viewer Panel">
+      This is what the viewer will see underneath the broadcaster&#8217;s stream, alongside
+      their other panels.
+    </ui-modal>
+
+    <ui-modal ref="config-panel" title="Configure Panel">
+      <p>
+        The Broadcaster Config App is accessible by the broadcaster from Twitch&#8217;s
+        &#8220;Extension Manager.&#8221; Your extension will
+        appear in a large area and should display any configuration options the
+        broadcaster may set that will affect your app channel-wide.
+      </p>
+      <p>
+        This page is not expected to be kept open by the broadcaster. Instead it is
+        loaded and configured before the extension is enabled, so that viewers only see your
+        extension after the broadcaster has tweaked it to their liking. Any realtime events
+        or updates sent to this page will most likely not be seen by the broadcaster.
+      </p>
+    </ui-modal>
+
+    <ui-modal ref="live-panel" title="Live Panel">
+      <p>
+        The broadcaster live app is accessible by the broadcaster from Twitch&#8217;s
+        &#8220;Live Dashboard.&#8221; The useable space in the Live App is considerably
+        smaller than the other two, and should only display controls that are immediately
+        useful to the broadcaster. The expected behavior is that a broadcaster will have
+        the Live Dashboard open while they stream.
+      </p>
+      <p>
+        This app is optional, but may be used to display information needed by the
+        broadcaster. For example, it may show aggregate voting data. It can also be used
+        by the broadcaster to effect app state, such as clearing out a poll&#8217;s
+        information, sending messages to viewers or hiding/displaying the app on all
+        viewers&#8217; pages.
+      </p>
+      <p>
+        <strong>NOTE</strong> that the width of this panel expands from
+        <code>286px</code> to <code>308px</code> when the broadcaster&#8217;s window expands
+        to <code>1200px</code> or wider.
+      </p>
+    </ui-modal>
   </div>
 </template>
 
 <script>
-const UiButton = window.KeenUI.UiButton;
-const UiTab = window.KeenUI.UiTab;
-const UiTabs = window.KeenUI.UiTabs;
-const UiToolbar = window.KeenUI.UiToolbar;
+const UiIconButton = window.KeenUI.UiIconButton;
+const UiMenu = window.KeenUI.UiMenu;
+const UiModal = window.KeenUI.UiModal;
 const UiSelect = window.KeenUI.UiSelect;
+const UiToolbar = window.KeenUI.UiToolbar;
 
 // Developer apps list
 const apps = /* DI:AppList */;
-const selectableApps = apps.map(a => ({ label: a._rig_id, value: a }));
+const selectableApps = apps.map(a => ({ label: a.name || a._rig_id, value: a }));
 
 export default {
   name: 'app',
-  components: { UiButton, UiTab, UiTabs, UiToolbar, UiSelect },
-
-  created() {
-  },
+  components: { UiIconButton, UiMenu, UiModal, UiSelect, UiToolbar },
 
   data: () => ({
     selectableApps,
@@ -96,9 +122,9 @@ export default {
       return this.selectedApp.value;
     },
 
-    viewerURL: function viewerURL() { return `/${this.app._rig_id}/${this.app.viewer_path}`; },
-    configURL: function configURL() { return `/${this.app._rig_id}/${this.app.config_path}`; },
-    liveURL: function liveURL() { return `/${this.app._rig_id}/${this.app.live_config_path}`; }
+    viewerURL() { return `/${this.app._rig_id}/${this.app.viewer_path}`; },
+    configURL() { return `/${this.app._rig_id}/${this.app.config_path}`; },
+    liveURL() { return `/${this.app._rig_id}/${this.app.live_config_path}`; }
   },
 
   methods: {
@@ -106,12 +132,13 @@ export default {
       window.open(url);
     },
 
-    appSelected() {
-    }
-  },
+    selectApp(app) {
+      this.selectedApp = app;
+    },
 
-  mounted() {
-    this.appSelected();
+    openModal(ref) {
+      this.$refs[ref].open();
+    }
   }
 };
 </script>
@@ -120,60 +147,99 @@ export default {
 @import '../shared/scss/base';
 
 .rig {
+  background-color: #faf9fa;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  min-height: 100%;
+  overflow: hidden;
+
   iframe {
-    border: 1px solid #bbb;
+    border: 1px solid #e5e3e8;
+    border-bottom: 0;
   }
 
-  .popout {
-    margin-bottom: 20px;
-  }
+  .viewer-live-apps {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px;
 
-  .viewer {
-    height: 500px; width: 100%;
-    overflow: hidden;
+    // Viewer panel extension
+    .viewer {
+      display: inline-block;
+      overflow: hidden;
+      width: 318px;
+      vertical-align: middle;
 
-    .overlay {
-      height: 100%; width: 100%;
-      position: relative;
-
-      .ext {
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 100;
+      .panel {
         // Panel extensions are limited to a height of 500px
         max-height: 500px;
         // ...and locked to 318px in width
         width: 318px;
       }
     }
+
+    // Broadcaster live extension
+    .live {
+      display: inline-block;
+      margin-left: 10px;
+      width: 286px;
+      vertical-align: middle;
+
+      iframe {
+        max-height: 500px;
+        overflow: hidden;
+        width: 286px;
+      }
+
+      // Copying Twitch's CSS, live frame size width increases on larger browser widths.
+      @media (min-width: 1200px) {
+        width: 308px;
+        iframe { width: 308px; }
+      }
+    }
+
+    .info {
+      display: inline-block;
+      width: 320px;
+      vertical-align: middle;
+    }
+  }
+
+  .config-app {
+    margin: 10px;
+    overflow: hidden;
+
+    iframe {
+      background-color: #faf9fa;
+      height: 700px;
+      width: 100%;
+    }
   }
 
   .app {
-    display: flex;
-    flex-flow: space-around;
+    .title {
+      background-color: #faf9fa;
+      border: 1px solid #e5e3e8;
+      color: #6441a4;
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      font-size: 0.8rem;
+      line-height: 2rem;
+      padding: 0 0.5rem;
+      position: relative;
+
+      .info-link {
+        cursor: pointer;
+        position: absolute;
+        right: 0.5rem;
+      }
+    }
 
     .info {
-      margin: 0 40px 20px 20px;
+      margin: 0;
 
       p:first-child { margin-top: 0; }
     }
-
-    .live {
-      flex-grow: 1;
-    }
-  }
-
-  .config iframe {
-    height: 700px;
-    width: 800px;
-    overflow: hidden;
-  }
-
-  .live iframe {
-    height: 500px;
-    width: 286px;
-    overflow: hidden;
   }
 }
 </style>
