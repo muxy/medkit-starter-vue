@@ -1,7 +1,9 @@
 <html>
   <head>
+    <!-- A real extension would not be able to link to external CDNs; we just do it here for simplicity -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
     <script src="//ext-cdn.muxy.io/muxy-extensions-sdk/testing/latest/muxy-extensions-sdk.js"></script>
+
     <script type="text/javascript">
       Muxy.testJWTRole = 'broadcaster'; // Necessary here to fake broadcaster access to the Muxy API. In production, the role will be set automatically in the broadcaster views.
 
