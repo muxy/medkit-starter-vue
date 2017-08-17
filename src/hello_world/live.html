@@ -12,7 +12,9 @@
 
       function changeMotd() {
         const motd = document.querySelector('#motd').value;
-        sdk.send('motd', { motd: motd });
+        sdk.loaded().then(() => {
+          sdk.send('motd', { motd: motd });
+        });
       }
     </script>
   </head>
