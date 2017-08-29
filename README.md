@@ -18,7 +18,7 @@ the Muxy SDK also provides a pubsub system that works exactly like the productio
 
 ## Managing Twitch Extension Secrets
 Before you can use the Muxy Extension SDK you will have to create a new extension on [https://vulcan.curseforge.com](https://vulcan.curseforge.com).
-Once you have done that take the Extension id and secret and submit them to [https://u.muxy.io/dev](https://u.muxy.io/dev) 
+Once you have done that take the Extension id and secret and submit them to [https://u.muxy.io/developers](https://u.muxy.io/developers) 
 This will allow the automatic sandbox credentials to work for your extension.
 
 ## Software Requirements
@@ -32,12 +32,6 @@ This documentation is bundled with the App Skeleton. The code can always be foun
 
 The NodeJS libraries required to run the skeleton can be installed by running `npm install` on the
 command line.
-
-## Running
-To run the rig, simply run `PORT=4000 npm run dev`. This will start the server running on port
-4000 on your local machine. You may change the port to suite your environment.
-
-Once running, visit http://localhost:4000 to see the extension rig.
 
 ## Developing with the Rig
 You can develop an extension directly in the rig by adding a folder under the src folder and creating a manifest.
@@ -60,3 +54,12 @@ other configuration settings that are available.
   "panel_height": 100
 }
 ```
+
+## Running
+To run the rig, simply run `PORT=4000 npm run dev`. This will start the server running on port
+4000 on your local machine. You may change the port to suite your environment.
+
+Once running, visit http://localhost:4000 to see the extension rig.
+
+## Resources
+ - [Getting Started](docs/GettingStarted.md)
