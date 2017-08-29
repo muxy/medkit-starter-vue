@@ -4,6 +4,12 @@
 
 The Muxy Extension Rig combined with the Muxy Extension SDK can greatly speed up the development of Twitch Extensions.
 
+See also:
+
+[MuxyExtensionSDK](https://github.com/muxy/MuxyExtensionSDK)
+
+[Overlay App Rig](https://github.com/muxy/overlay-app-rig)
+
 ##Overview
 
 The Rig simulates the Twitch environment that extension run in. Combined with the Muxy SDK it allows extensions to
@@ -39,6 +45,9 @@ You can develop an extension directly in the rig by adding a folder under the sr
 If you are planning developing with an asset pipeline or bundler (gulp, webpack, etc.) you'll want to create a new folder in the Rig source folder and 
 set that as your output folder. The webserver shipped with the Rig will then serve those assets.
 
+There are two example apps under the src folder that show off the absolute minimum for an Extension with the Muxy Extension SDK.
+For documentation on the Muxy Extension SDK visit [https://github.com/muxy/MuxyExtensionSDK](https://github.com/muxy/MuxyExtensionSDK)
+
 ## Manifest
 Putting a manifest.json file in the root of your app lets us know what files we should load into the rig. Along with any
 other configuration settings that are available.
@@ -50,5 +59,4 @@ other configuration settings that are available.
   "live_config_path": "live.html",
   "panel_height": 100
 }
-
 ```
