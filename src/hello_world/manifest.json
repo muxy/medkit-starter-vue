@@ -1,18 +1,4 @@
 {
-  "anchor": "panel",
-  "extension_id": "",
-  "extension_version": "1.0.0",
-  "request_identity_link": true,
-  "panel_height": 500,
-  "icon_path": "assets/images/icon.png",
-  "author_name": "Muxy, Inc.",
-  "author_email": "support@muxy.io",
-  "support_email": "support@muxy.io",
-  "name": "Hello Panel World",
-  "summary": "An example panel using the Muxy Extension Development Kit",
-  "description": "This simple hello world example should get you up and running quickly.",
-  "eula_tos_url": "https://muxy.io/terms/",
-  "privacy_policy_url": "https://muxy.io/privacy/",
   "viewer_path": "viewer.html",
   "config_path": "config.html",
   "live_config_path": "live.html"
