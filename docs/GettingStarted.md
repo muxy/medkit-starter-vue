@@ -18,7 +18,7 @@ npm install
 ## Register a new Extension on Twitch
 *  Visit [https://vulcan.curseforge.com](https://vulcan.curseforge.com) and create a new extension. Make a note of the 
 Extension ID and Secret that get generated.
-*  Visit [https://u.muxy.io/dev](https://u.muxy.io/dev) and submit the ID and Secret from the last step to enable the 
+*  Visit [https://u.muxy.io/developers](https://u.muxy.io/developers) and submit the ID and Secret from the last step to enable the 
 Muxy Extension SDK for your Extension.
 
 ## Create the Extension 
@@ -111,6 +111,6 @@ PORT=4000 npm run dev
 Visit [http://localhost:4000](http://localhost:4000)
 
 ## Next Steps
-*  Read up on the Muxy Extension SDK: [https://github.com/muxy/MuxyExtensionSDK](https://github.com/muxy/MuxyExtensionSDK)
+*  Read up on the Muxy Extension SDK: [https://github.com/muxy/extensions-js](https://github.com/muxy/extensions-js)
 *  Visit the forum
 *  Hit us up with any issues at [support@muxy.io](mailto:support@muxy.io)

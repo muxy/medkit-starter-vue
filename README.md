@@ -6,7 +6,7 @@ The Muxy Extension Rig combined with the Muxy Extension SDK can greatly speed up
 
 See also:
 
-[MuxyExtensionSDK](https://github.com/muxy/MuxyExtensionSDK)
+[Muxy Extension JavaScript Library](https://github.com/muxy/extensions-js)
 
 [Overlay App Rig](https://github.com/muxy/overlay-app-rig)
 
@@ -27,8 +27,8 @@ be available. The LTS version (currently 6.11) is used to test against. NodeJS m
 [here](https://nodejs.org).
 
 This documentation is bundled with the App Skeleton. The code can always be found on its
-[GitHub page](https://github.com/muxy/muxy-extension-rig) with specific
-[tagged releases](https://github.com/muxy/muxy-extension-rig/releases) available.
+[GitHub page](https://github.com/muxy/extension-rig) with specific
+[tagged releases](https://github.com/muxy/extension-rig/releases) available.
 
 The NodeJS libraries required to run the skeleton can be installed by running `npm install` on the
 command line.
@@ -40,7 +40,7 @@ If you are planning developing with an asset pipeline or bundler (gulp, webpack,
 set that as your output folder. The webserver shipped with the Rig will then serve those assets.
 
 There are two example apps under the src folder that show off the absolute minimum for an Extension with the Muxy Extension SDK.
-For documentation on the Muxy Extension SDK visit [https://github.com/muxy/MuxyExtensionSDK](https://github.com/muxy/MuxyExtensionSDK)
+For documentation on the Muxy Extension SDK visit [https://github.com/muxy/extensions-js](https://github.com/muxy/extensions-js)
 
 ## Manifest
 Putting a manifest.json file in the root of your app lets us know what files we should load into the rig. Along with any
