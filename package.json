@@ -9,7 +9,7 @@
   },
   "keywords": [],
   "author": "Muxy, Inc.",
-  "license": "ISC",
+  "license": "CC-NC-ND",
   "repository": "https://github.com/muxy/extensions-rig",
   "devDependencies": {
     "babel": "^6.23.0",
