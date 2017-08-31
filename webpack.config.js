@@ -41,7 +41,7 @@ module.exports = {
       '@': resolve('lib'),
       manifest$: resolve('manifest.json'),
       shared: resolve('lib/shared'),
-      src: resolve('lib'),
+      src: resolve('lib')
     }
   },
 
@@ -49,7 +49,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new CopyWebpackPlugin(
       [
-        { from: 'node_modules/keen-ui/dist/keen-ui.min.js', to: 'vendor/js/' },
+        { from: 'node_modules/keen-ui/dist/keen-ui.min.js', to: 'vendor/js/' }
       ],
       { ignore: ['.DS_Store'] }
     ),
@@ -148,7 +148,7 @@ module.exports = {
             options: { apps }
           }
         ]
-      },
+      }
 
     ]
   }
