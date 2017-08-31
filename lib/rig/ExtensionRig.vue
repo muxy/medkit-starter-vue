@@ -135,7 +135,7 @@ export default {
       return _.find(extensions, e => e._rig_id === this.extension_id);
     },
 
-    viewerURL() { return `/${this.extension._rig_id}/viewer`; },
+    viewerURL() { return `/${this.extension._rig_id}/${this.extension.viewer_path}`; },
     configURL() { return `/${this.extension._rig_id}/${this.extension.config_path}`; },
     liveURL() { return `/${this.extension._rig_id}/${this.extension.live_config_path}`; }
   },

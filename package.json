@@ -1,7 +1,7 @@
 {
-  "name": "muxy-extension-skeleton",
-  "version": "0.0.1",
-  "description": "Skeleton project for developing a Twitch Extension Panel with the Muxy SDK.",
+  "name": "muxy-extensions-rig",
+  "version": "1.0.0",
+  "description": "A full development environment to build Twitch panel extensions.",
   "main": "index.js",
   "scripts": {
     "dev": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
@@ -10,6 +10,7 @@
   "keywords": [],
   "author": "Muxy, Inc.",
   "license": "ISC",
+  "repository": "https://github.com/muxy/extensions-rig",
   "devDependencies": {
     "babel": "^6.23.0",
     "babel-core": "^6.24.1",
