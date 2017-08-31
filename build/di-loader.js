@@ -10,23 +10,26 @@ module.exports = function directInjection(content) {
   appDirs.forEach((appDir) => {
     try {
       const manifestFile = `${appDir}/manifest.json`;
-      this.addDependency(manifestFile); // Watch for file changes.
+
+      this.addContextDependency(path.resolve(__dirname, 'src')); // Watch for file changes.
+      this.addContextDependency(path.resolve(__dirname, appDir));
+      this.addDependency(path.resolve(__dirname, manifestFile));
 
       const manifestObj = JSON.parse(fs.readFileSync(manifestFile, 'utf8'));
-      manifestObj._rig_id = path.posix.basename(appDir),
+      manifestObj._rig_id = path.posix.basename(appDir);
       apps.push(manifestObj);
     } catch (err) {
       console.error(err);
     }
   });
 
-  // DI:AppList
+  // DI:ExtensionList
   //
-  // Inserts a list of app configuration objects.
-  // [ { _rig_id: <app id>, etc. } ]
+  // Inserts a list of extension configuration objects.
+  // [ { _rig_id: <folder name>, etc. } ]
 
   try {
-    out = replace(out, '/* DI:AppList */', `/*eslint-disable*/[${apps.map(a => JSON.stringify(a)).join(', ')}]/* eslint-enable */`);
+    out = replace(out, '/* DI:ExtensionList */', `/* eslint-disable */[${apps.map(a => JSON.stringify(a)).join(', ')}]/* eslint-enable */`);
   } catch (err) {
     console.error(err);
     throw err;

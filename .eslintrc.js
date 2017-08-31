@@ -20,9 +20,12 @@ module.exports = {
   },
   rules: {
     'comma-dangle': ['error', 'never'],
-    'no-param-reassign': [2, {
-      'props': false
-    }],
+    'no-param-reassign': [
+      2,
+      {
+        props: false
+      }
+    ],
 
     // eslint doesn't currently understand webpack aliases
     'import/no-extraneous-dependencies': 0,
@@ -35,4 +38,4 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 2 : 1,
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 1
   }
-}
+};
