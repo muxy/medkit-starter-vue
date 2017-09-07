@@ -10,7 +10,7 @@ See also:
 
 [Overlay App Rig](https://github.com/muxy/overlay-app-rig)
 
-##Overview
+## Overview
 
 The Rig simulates the Twitch environment that extension run in. Combined with the Muxy SDK it allows extensions to
 safely be sandboxed away from production data and any hiccups that can happen on Twitch's site. When running in the rig 
