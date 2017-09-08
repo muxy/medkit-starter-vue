@@ -1,6 +1,6 @@
 {
   "name": "muxy-extensions-rig",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A full development environment to build Twitch panel extensions.",
   "main": "index.js",
   "scripts": {
