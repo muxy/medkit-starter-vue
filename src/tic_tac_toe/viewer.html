@@ -1,0 +1,94 @@
+<html>
+  <head>
+    <!-- A real extension would not be able to link to external CDNs; we just do it here for simplicity -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+    <script src="//ext-cdn.muxy.io/muxy-extensions-js/latest/muxy-extensions.js"></script>
+
+    <script type="text/javascript">
+      // Basic state setup
+      Muxy.testChannelID = '23161357';
+      Muxy.setup({ extensionID: '1ssqhiy6xaoyisxbtvkiusxtjzkof2' });
+      const sdk = new Muxy.SDK();
+
+      // Generally good practice to not let users spam the API by
+      // abusing the UI
+      vote = _.throttle(function(val) {
+        sdk.accumulate('move', {
+          value: val
+        });
+      }, 500);
+
+      // Game state display
+      function glyph(val) {
+        if (val === 1) { return "X"; }
+        if (val === -1) { return "O"; }
+        return '_';
+      }
+
+      function render(state) {
+        if (state.player === 1) {
+          document.getElementById("warn").innerHTML = "Broadcaster's turn...";
+        } else {
+          document.getElementById("warn").innerHTML = "Twitch's turn!";
+        }
+
+        for (var i = 0; i < 9; ++i) {
+          const val = state.board[i];
+          document.getElementById("" + (i+1)).innerHTML = glyph(val);
+        }
+
+        if (state.message) {
+          document.getElementById("warn").innerHTML = state.message;
+        }
+      };
+
+      sdk.loaded().then(() => {
+        // Initial load of state so that latecomers to the stream
+        // don't have to wait for an action to get the state of the game.
+        sdk.getAllState().then(function(state) {
+          render(state.channel);
+        });
+
+        // Listen on different events
+        sdk.listen('make_choice', function(msg) {
+          // make_choice doesn't have state, so query the state here.
+          sdk.getAllState().then(function(state) {
+            render(state.channel);
+          });
+        });
+
+        // Render requests a render of state
+        sdk.listen('render', function(msg) {
+          render(msg);
+        });
+
+        // Same with the winner message.
+        sdk.listen('winner', function(msg) {
+          render(msg);
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <h3>Tic tac toe</h3>
+    <h4 id="warn">Voting is disabled right now, wait.</h4>
+    <table>
+      <tr>
+        <td><a id="1" onclick="vote(1)" href="javascript:;">1</a></td>
+        <td><a id="2" onclick="vote(2)" href="javascript:;">2</a></td>
+        <td><a id="3" onclick="vote(3)" href="javascript:;">3</a></td>
+      </tr>
+      <tr>
+        <td><a id="4" onclick="vote(4)" href="javascript:;">4</a></td>
+        <td><a id="5" onclick="vote(5)" href="javascript:;">5</a></td>
+        <td><a id="6" onclick="vote(6)" href="javascript:;">6</a></td>
+      </tr>
+      <tr>
+        <td><a id="7" onclick="vote(7)" href="javascript:;">7</a></td>
+        <td><a id="8" onclick="vote(8)" href="javascript:;">8</a></td>
+        <td><a id="9" onclick="vote(9)" href="javascript:;">9</a></td>
+      </tr>
+    </table>
+  </body>
+</html>
