@@ -16,13 +16,15 @@
           sdk.send('motd', { motd: motd });
         });
       }
+
+      document.querySelector('#set-motd').addEventListener('click', changeMotd);
     </script>
   </head>
 
   <body>
     <textarea id="motd">Hello, world!</textarea>
     <p>
-      <button onclick="changeMotd()">Set MOTD</button>
+      <button id="set-motd">Set MOTD</button>
     </p>
   </body>
 </html>

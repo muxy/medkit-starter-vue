@@ -11,12 +11,14 @@
       const increment = _.debounce(function () {
         sdk.accumulate('simple_counter', {}); // We're not sending any actual data in our accumulated objects - we're just going to count the number of objects that have accumulated
       }, 250);
+
+      document.querySelector('#increment').addEventListener('click', increment);
     </script>
   </head>
 
   <body>
     <p>Pressing 'Increment' will send an accumulation request.</p>
 
-    <button onclick="increment()">Increment</button>
+    <button id="increment">Increment</button>
   </body>
 </html>
