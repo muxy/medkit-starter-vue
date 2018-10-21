@@ -1,0 +1,15 @@
+// Normalize
+@import '~normalize-scss/sass/normalize';
+
+@import './colors';
+@import './fonts';
+
+// Fill screen, default fonts, no-margin.
+html,
+body {
+  height: 100%;
+  width: 100%;
+
+  font-family: $default-font-family;
+  margin: 0;
+}

@@ -1,0 +1,42 @@
+{
+  "name": "medkit-starter-vue",
+  "version": "1.0.0",
+  "private": false,
+  "scripts": {
+    "serve": "cross-env CLIENT_ID=7zxg... vue-cli-service serve",
+    "build": "cross-env CLIENT_ID=7zxg... ANALYTICS=true vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@muxy/extensions-js": "^2.0.0",
+    "cross-env": "^5.2.0",
+    "normalize-scss": "^7.0.1",
+    "vue": "^2.5.17",
+    "vue-template-compiler": "^2.5.17",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.0.4",
+    "@vue/cli-service": "^3.0.4",
+    "node-sass": "^4.9.4",
+    "sass-loader": "^7.1.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "vue-cli-service lint",
+      "git add"
+    ],
+    "*.vue": [
+      "vue-cli-service lint",
+      "git add"
+    ]
+  }
+}
