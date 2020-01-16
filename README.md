@@ -28,16 +28,16 @@ You can now run your extension in a local development server by executing `npm r
 This will make the various components available at (the port number may be different on your machine):
 
 Admin-only pages:
-- https://localhost:8080/admin.html
+- https://localhost:4000/admin.html
 
 Broadcaster-only pages:
-- https://localhost:8080/config.html
-- https://localhost:8080/live.html
+- https://localhost:4080/config.html
+- https://localhost:4000/live.html
 
 Viewer pages:
-- https://localhost:8080/component.html
-- https://localhost:8080/mobile.html
-- https://localhost:8080/overlay.html
+- https://localhost:4000/component.html
+- https://localhost:4000/mobile.html
+- https://localhost:4000/overlay.html
 
 ## Structure
 
