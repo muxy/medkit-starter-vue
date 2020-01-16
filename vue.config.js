@@ -46,7 +46,7 @@ module.exports = {
   },
 
   devServer: {
-    host: 'localhost.twitch.tv',
+    host: 'localhost',
     https: true,
     port: 4000
   }
