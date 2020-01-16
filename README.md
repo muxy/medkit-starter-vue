@@ -23,7 +23,7 @@ In the `scripts` section:
 
 Replace `7zxg...` with your actual Client ID. Do not put quotes around the id.
 
-You can now run your extension in a local development server by executing `npm run serve` or using the Vue UI.
+After executing an `npm install`, you can run your extension in a local development server by executing `npm run serve` or using the Vue UI.
 
 This will make the various components available at (the port number may be different on your machine):
 
