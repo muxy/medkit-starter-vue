@@ -4,10 +4,9 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { provideMEDKit } from "@/shared/hooks/use-medkit";
 
 import globals from "@/shared/globals";
-
-import { provideMEDKit } from "@/shared/hooks/use-medkit";
 
 export default defineComponent({
   name: "App",
@@ -25,5 +24,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import "../shared/scss/base.scss";
+@import "@/shared/scss/base.scss";
 </style>
