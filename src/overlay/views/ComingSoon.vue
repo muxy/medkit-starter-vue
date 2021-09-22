@@ -2,5 +2,11 @@
   <div>COMING SOON</div>
 </template>
 
-<style lang="scss" scoped>
+<script lang="ts">
+import { defineComponent } from "vue";
+export default defineComponent({});
+</script>
+
+<style lang="scss">
+@import "@/shared/scss/base.scss";
 </style>
