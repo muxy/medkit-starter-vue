@@ -1,4 +1,4 @@
-import { MEDKit } from "@muxy/extensions-js";
+import { MuxySDK } from "@muxy/extensions-js";
 
 interface AnalyticsEvent {
   action: string;
@@ -6,23 +6,29 @@ interface AnalyticsEvent {
   label: string;
 }
 
+let medkit: MuxySDK | null = null;
+let category = "SET_APP_CATEGORY";
+
 // Send a keep alive heartbeat to the analytics system every minute.
 const HEARTBEAT_TIMEOUT_MS = 60 * 1000;
 
-const mostRecentData = {};
 export default {
+  setMedkit(appMedkit: MuxySDK): void {
+    medkit = appMedkit;
+  },
+
+  setCategory(appCategory: string): void {
+    category = appCategory;
+  },
+
   // Sends a single event namespaced to the provided category.
-  async sendEvent(
-    medkit: MEDKit,
-    category: string,
-    event: AnalyticsEvent
-  ): Promise<void> {
-    if (!medkit.analytics) {
+  async sendEvent(event: AnalyticsEvent): Promise<void> {
+    if (!medkit?.analytics) {
       return Promise.resolve();
     }
 
-    await medkit.loaded();
-    return medkit.analytics.sendEvent(
+    await medkit?.loaded();
+    return medkit?.analytics.sendEvent(
       category,
       event.action,
       event.value,
@@ -31,30 +37,25 @@ export default {
   },
 
   // Starts a cycle of sending live heartbeat events.
-  startKeepAliveHeartbeat(medkit: MEDKit, category: string) {
-    this.sendEvent(medkit, category, {
+  startKeepAliveHeartbeat() {
+    this.sendEvent({
       action: "heartbeat",
       value: 1,
       label: "Viewer heartbeat",
     });
 
     window.setTimeout(() => {
-      this.startKeepAliveHeartbeat(medkit, category);
+      this.startKeepAliveHeartbeat();
     }, HEARTBEAT_TIMEOUT_MS);
   },
 
   // Send a single "pageview" event.
-  async sendPageView(medkit: MEDKit): Promise<void> {
-    if (!medkit.analytics) {
+  async sendPageView(): Promise<void> {
+    if (!medkit?.analytics) {
       return Promise.resolve();
     }
 
-    await medkit.loaded();
-    return medkit.analytics.pageView();
-  },
-
-  // eslint-disable-next-line
-  mostRecentDataSent(): any {
-    return mostRecentData;
+    await medkit?.loaded();
+    return medkit?.analytics.pageView();
   },
 };

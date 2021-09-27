@@ -21,7 +21,8 @@ export default defineComponent({
       userId: globals.TESTING_USER_ID,
     });
 
-    analytics.startKeepAliveHeartbeat(medkit, "PROJECT_NAME");
+    analytics.setMedkit(medkit);
+    analytics.startKeepAliveHeartbeat();
   },
 });
 </script>

@@ -24,6 +24,5 @@
     "tests/**/*.ts",
     "tests/**/*.tsx"
   ],
-  "exclude": ["node_modules"],
-  "files": ["shims/vue.d.ts"]
+  "exclude": ["node_modules"]
 }
