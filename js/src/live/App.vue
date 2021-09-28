@@ -1,6 +1,6 @@
 <template>
-  <div class="config">
-    <h1>Broadcaster Configuration</h1>
+  <div class="live">
+    <h1>Broadcaster Live Dashboard</h1>
 
     <ComingSoon />
   </div>
@@ -33,7 +33,7 @@ export default defineComponent({
 <style lang="scss">
 @import "@/shared/scss/base.scss";
 
-.config {
+.live {
   height: 100%;
   width: 100%;
 

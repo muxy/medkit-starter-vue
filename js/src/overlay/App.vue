@@ -1,16 +1,23 @@
 <template>
-  <div>Overlay Extension</div>
+  <div class="overlay">
+    <h1>Overlay Extension</h1>
+
+    <ComingSoon />
+  </div>
 </template>
 
 <script lang="js">
 import { defineComponent } from "vue";
+
 import { provideMEDKit } from "@/shared/hooks/use-medkit";
 
 import analytics from "@/shared/analytics";
 import globals from "@/shared/globals";
 
+import ComingSoon from "@/shared/views/ComingSoon.vue";
+
 export default defineComponent({
-  name: "App",
+  components: { ComingSoon },
 
   setup() {
     const medkit = provideMEDKit({
@@ -21,7 +28,7 @@ export default defineComponent({
       userId: globals.TESTING_USER_ID,
     });
 
-    analytics.setMedkit(medkit);
+    analytics.setMEDKit(medkit);
     analytics.startKeepAliveHeartbeat();
   },
 });
@@ -29,4 +36,12 @@ export default defineComponent({
 
 <style lang="scss">
 @import "@/shared/scss/base.scss";
+
+.overlay {
+  height: 100%;
+  width: 100%;
+
+  background-color: rgba(50, 50, 50, 0.6);
+  color: white;
+}
 </style>

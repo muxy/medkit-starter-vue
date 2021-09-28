@@ -17,7 +17,10 @@ interface VueMEDKitOptions {
 
 const MEDKitInjectionKey: InjectionKey<MEDKit> = Symbol("medkit");
 
-export function provideMEDKit(options: VueMEDKitOptions) {
+// Initialized and returns an instance of the MEDKit extension
+// SDK. The instance is also provided to the Vue injection system
+// for easier retrieval using the `useMEDKit` helper.
+export function provideMEDKit(options: VueMEDKitOptions): MEDKit {
   if (!options.clientId) {
     throw new Error("Must specify client id when using the MEDKit Vue plugin");
   }
@@ -62,10 +65,16 @@ export function provideMEDKit(options: VueMEDKitOptions) {
   return medkit;
 }
 
-export function useMEDKit() {
+type UseMEDKitContext = {
+  medkit: MEDKit;
+};
+
+// Returns the provided MEDKit instance created by an earlier call
+// to `provideMEDKit`
+export function useMEDKit(): UseMEDKitContext {
   const medkit = inject<MEDKit>(MEDKitInjectionKey);
   if (!medkit) {
-    throw new Error("MEDKit could not be created");
+    throw new Error("MEDKit could not be initialized");
   }
 
   return { medkit };

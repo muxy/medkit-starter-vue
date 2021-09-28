@@ -3,6 +3,7 @@
 
 /**
  * @typedef {Object} Globals
+ *
  * @property {boolean} ANALYTICS - Boolean if analytics is enabled or not
  * @property {string}  CLIENT_ID - Client ID, as obtained from twitch.
  * @property {boolean} PRODUCTION - true if this is being built in production.

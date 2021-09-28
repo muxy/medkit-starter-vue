@@ -1,1 +1,0 @@
-Extension images go here.

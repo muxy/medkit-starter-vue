@@ -1,4 +1,8 @@
 /**
+ * @typedef { import("@muxy/extensions-js").MEDKit } MEDKit
+ */
+
+/**
  * @typedef {Object} AnalyticsEvent
  * @property {string} action - The action of the analytics event, like 'heartbeat' or 'page-view'
  * @property {number} value - The value associated with the analytics event
@@ -17,14 +21,16 @@ const HEARTBEAT_TIMEOUT_MS = 60 * 1000;
 export default {
   /**
    * Sets the cached medkit instance
+   *
    * @param {MEDKit} appMedkit - MEDKit instance
    **/
-  setMedkit(appMedkit) {
+  setMEDKit(appMedkit) {
     medkit = appMedkit;
   },
 
   /**
    * Sets the cached category
+   *
    * @param {string} appCategory - category
    **/
   setCategory(appCategory) {
@@ -33,6 +39,7 @@ export default {
 
   /**
    * Sends a single event namespaced to the provided category.
+   *
    * @param {AnalyticsEvent} event - The event itself
    * @returns {Promise<void>} - Promise that is resolved when the analytics event is sent.
    *  Resolves instantly if analytics isn't enabled.
@@ -68,6 +75,7 @@ export default {
 
   /**
    * Send a single "pageview" event.
+   *
    * @returns {Promise<void>} - Promise that is resolved when the analytics event is sent.
    *  Resolves instantly if analytics isn't enabled.
    */

@@ -1,12 +1,15 @@
 <template>
-  <div>COMING SOON</div>
+  <h1>COMING SOON</h1>
 </template>
 
-<script lang="js">
+<script lang="ts">
 import { defineComponent } from "vue";
+
 export default defineComponent({});
 </script>
 
 <style lang="scss">
-@import "@/shared/scss/base.scss";
+h1 {
+  font-size: 2rem;
+}
 </style>

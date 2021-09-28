@@ -1,4 +1,4 @@
-import { MuxySDK } from "@muxy/extensions-js";
+import { MEDKit } from "@muxy/extensions-js";
 
 interface AnalyticsEvent {
   action: string;
@@ -6,14 +6,14 @@ interface AnalyticsEvent {
   label: string;
 }
 
-let medkit: MuxySDK | null = null;
+let medkit: MEDKit | null = null;
 let category = "SET_APP_CATEGORY";
 
 // Send a keep alive heartbeat to the analytics system every minute.
 const HEARTBEAT_TIMEOUT_MS = 60 * 1000;
 
 export default {
-  setMedkit(appMedkit: MuxySDK): void {
+  setMEDKit(appMedkit: MEDKit): void {
     medkit = appMedkit;
   },
 
@@ -24,6 +24,7 @@ export default {
   // Sends a single event namespaced to the provided category.
   async sendEvent(event: AnalyticsEvent): Promise<void> {
     if (!medkit?.analytics) {
+      console.error("Event not sent to analytics processor");
       return Promise.resolve();
     }
 
@@ -37,7 +38,7 @@ export default {
   },
 
   // Starts a cycle of sending live heartbeat events.
-  startKeepAliveHeartbeat() {
+  startKeepAliveHeartbeat(): void {
     this.sendEvent({
       action: "heartbeat",
       value: 1,
@@ -52,6 +53,7 @@ export default {
   // Send a single "pageview" event.
   async sendPageView(): Promise<void> {
     if (!medkit?.analytics) {
+      console.error("Page view not sent to analytics processor");
       return Promise.resolve();
     }
 

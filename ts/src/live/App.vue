@@ -1,6 +1,7 @@
 <template>
-  <div class="overlay">
-    <h1>Overlay Extension</h1>
+  <div class="live">
+    <h1>Broadcaster Live Dashboard</h1>
+
     <ComingSoon />
   </div>
 </template>
@@ -10,7 +11,6 @@ import { defineComponent } from "vue";
 
 import { provideMEDKit } from "@/shared/hooks/use-medkit";
 
-import analytics from "@/shared/analytics";
 import globals from "@/shared/globals";
 
 import ComingSoon from "@/shared/views/ComingSoon.vue";
@@ -19,16 +19,13 @@ export default defineComponent({
   components: { ComingSoon },
 
   setup() {
-    const medkit = provideMEDKit({
+    provideMEDKit({
       channelId: globals.TESTING_CHANNEL_ID,
       clientId: globals.CLIENT_ID,
-      role: "viewer",
+      role: "broadcaster",
       uaString: globals.UA_STRING,
       userId: globals.TESTING_USER_ID,
     });
-
-    analytics.setMEDKit(medkit);
-    analytics.startKeepAliveHeartbeat();
   },
 });
 </script>
@@ -36,7 +33,7 @@ export default defineComponent({
 <style lang="scss">
 @import "@/shared/scss/base.scss";
 
-.overlay {
+.live {
   height: 100%;
   width: 100%;
 

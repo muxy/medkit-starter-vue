@@ -1,6 +1,7 @@
 <template>
-  <div class="overlay">
-    <h1>Overlay Extension</h1>
+  <div class="panel">
+    <h1>Panel Extension</h1>
+
     <ComingSoon />
   </div>
 </template>
@@ -36,7 +37,7 @@ export default defineComponent({
 <style lang="scss">
 @import "@/shared/scss/base.scss";
 
-.overlay {
+.panel {
   height: 100%;
   width: 100%;
 
