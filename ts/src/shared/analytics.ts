@@ -24,7 +24,9 @@ export default {
   // Sends a single event namespaced to the provided category.
   async sendEvent(event: AnalyticsEvent): Promise<void> {
     if (!medkit?.analytics) {
-      console.error("Event not sent to analytics processor");
+      console.error(
+        "MEDKit analytics has not been initialized. Make sure to set the `UA_STRING` environment variable."
+      );
       return Promise.resolve();
     }
 
@@ -53,7 +55,9 @@ export default {
   // Send a single "pageview" event.
   async sendPageView(): Promise<void> {
     if (!medkit?.analytics) {
-      console.error("Page view not sent to analytics processor");
+      console.error(
+        "MEDKit analytics has not been initialized. Make sure to set the `UA_STRING` environment variable."
+      );
       return Promise.resolve();
     }
 
