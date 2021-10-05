@@ -8,11 +8,11 @@ const pkg = require("./package.json");
 const config = {
   publicPath: "./",
   pages: {
-    component: "./src/component/main.ts",
+    component: "./src/component/main.js",
     config: "./src/config/main.js",
-    live: "./src/live/main.ts",
+    live: "./src/live/main.js",
     overlay: "./src/overlay/main.js",
-    panel: "./src/panel/main.ts",
+    panel: "./src/panel/main.js",
   },
 
   chainWebpack: config => {
