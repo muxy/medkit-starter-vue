@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@muxy/extensions-js": "^2.4.3",
+    "core-js": "^3.18.3",
     "vue": "^3.0.0"
   },
   "devDependencies": {
